@@ -2,6 +2,7 @@
 import {useEffect, useState} from "react";
 import {postUsecase} from "../../../../domain/usecases/post/post-usecase.ts";
 import {postAdapter} from "../../../../infrastructure/adapters/post-adapter.ts";
+import {axiosClient} from "../../../../infrastructure/ports/axios-client.ts";
 
 export const usePost = () => {
     
@@ -15,10 +16,11 @@ export const usePost = () => {
     
     useEffect(() => {
 
-        const postGateway = postAdapter();
-        const request = postUsecase(postGateway);
+        const httpClient = axiosClient();
+        const request = postAdapter(httpClient);
+        const useCase = postUsecase(request);
 
-        request.getPosts()
+        useCase.getPosts()
           .then(r =>{
               setPosts(r);
         } )
