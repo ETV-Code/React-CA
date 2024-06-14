@@ -1,18 +1,16 @@
 import {PostGateway} from "../../models/post/post-gateway.ts";
-import {postAdapter} from "../../../infrastructure/adapters/post-adapter.ts";
 import {PostModel} from "../../models/post/post-model.ts";
 
-export const postUsecase = ():PostGateway => {
+export const postUsecase = (postGateway:PostGateway) => {
     return {
-        getPosts,
+      getPosts: () => getPosts(postGateway)
 
     };
 };
 
-const getPosts = async ():Promise<PostModel[]> => {
-    const response = postAdapter();
+const getPosts = async (postGateway:PostGateway):Promise<PostModel[]> => {
 
-    return await response.getPosts()
+    return await postGateway.getPosts()
       .then(r =>{
           return r
       } )

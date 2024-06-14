@@ -1,6 +1,7 @@
 
 import {useEffect, useState} from "react";
 import {postUsecase} from "../../../../domain/usecases/post/post-usecase.ts";
+import {postAdapter} from "../../../../infrastructure/adapters/post-adapter.ts";
 
 export const usePost = () => {
     
@@ -14,7 +15,8 @@ export const usePost = () => {
     
     useEffect(() => {
 
-        const request = postUsecase();
+        const postGateway = postAdapter();
+        const request = postUsecase(postGateway);
 
         request.getPosts()
           .then(r =>{
