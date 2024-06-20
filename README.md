@@ -1,2 +1,2 @@
 # React-CA
-Angular usando clean architecture
+React usando clean architecture
